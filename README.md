@@ -1,27 +1,101 @@
-# PaySuite .NET SDK - Exemplo de Consola
+# paysuite-dotnet-samples
 
-Aplicação de consola simples que mostra como usar o [PaySuite .NET SDK](https://github.com/LazaroMagaia/paysuite-dotnet-sdk) para integrar com a API da PaySuite.
+Exemplos práticos de como usar o [PaySuite .NET SDK](https://github.com/LazaroMagaia/paysuite-dotnet-sdk) para integrar com a API da PaySuite.
 
-Tem um menu interativo para testar **Pagamentos**, **Contactos**, **Payouts**, **Refunds** e **Webhooks**, com código curto e fácil de ler.
+O objetivo deste repositório é seres tu a **copiar e colar** o código para o teu projeto, seja ele uma aplicação de consola, ASP.NET MVC, Razor Pages ou uma API.
 
-> ⚠️ **Aviso:** o SDK é **não oficial** e não tem qualquer ligação à PaySuite. Para informações oficiais sobre a API, consulta <https://paysuite.tech/docs>.
+> ⚠️ **Aviso:** o SDK é **não oficial**, mantido pela comunidade, e não tem qualquer ligação à PaySuite. Para informações oficiais sobre a API, consulta <https://paysuite.tech/docs>.
+
+---
+
+## 📦 Exemplos disponíveis
+
+| Exemplo | Descrição | Estado |
+| ------- | --------- | ------ |
+| [`samples/Console`](samples/Console) | Menu interativo para testar Pagamentos, Contactos, Payouts, Refunds e Webhooks | ✅ Disponível |
+| `samples/AspNetMvc` | Controllers e views com injeção de dependências | 🚧 Em breve |
+
+---
+
+## 📥 Instalação do SDK
+
+Instala o SDK através do NuGet:
+
+```bash
+dotnet add package PaySuite.Sdk --version 0.1.3
+```
+
+Ou adiciona diretamente ao teu `.csproj`:
+
+```xml
+<ItemGroup>
+  <PackageReference Include="PaySuite.Sdk" Version="0.1.3" />
+</ItemGroup>
+```
+
+Pacote no NuGet: <https://www.nuget.org/packages/PaySuite.Sdk>
 
 ---
 
 ## 📋 O que precisas
 
 - Um **token da API** da PaySuite (no painel, em *Settings > API Access*)
-- **Docker** e **Docker Compose** (forma mais fácil), ou o **.NET 10 SDK**
+- O **SDK** (`PaySuite.Sdk`) instalado no teu projeto, como mostrado acima
+- Para correr os exemplos deste repositório: **Docker** e **Docker Compose** (forma mais fácil), ou o **.NET 10 SDK**
 
 ---
 
-## 🐳 Correr com Docker (recomendado)
+## 🔑 Configurar o token
+
+Nunca coloques o token no código. Escolhe a opção que se aplica ao teu projeto:
+
+**Variável de ambiente** (consola, Docker, servidores)
+
+```bash
+export PAYSUITE_TOKEN="o-teu-token-aqui"
+```
+
+**User-secrets** (ASP.NET em desenvolvimento)
+
+```bash
+dotnet user-secrets init
+dotnet user-secrets set "PaySuite:Token" "o-teu-token-aqui"
+```
+
+---
+
+## ✂️ Como copiar para o teu projeto
+
+Cada recurso é uma classe pequena e independente. Para usar no teu projeto:
+
+1. Instala o pacote `PaySuite.Sdk` (ver acima).
+2. Copia a classe do recurso que precisas (por exemplo, `Payments.cs`).
+3. Ajusta o `namespace` e a forma como o token chega à classe (variável de ambiente, `appsettings.json` ou user-secrets).
+4. Chama os métodos a partir do teu controller, serviço ou página.
+
+| Quero | Copio |
+| ----- | ----- |
+| Receber pagamentos | `Payments.cs` |
+| Gerir contactos | `Contacts.cs` |
+| Enviar dinheiro (payouts) | `Payouts.cs` |
+| Reembolsar pagamentos | `Refunds.cs` |
+| Tratar webhooks | `Webhooks.cs` |
+
+Não precisas de copiar o `Program.cs` do exemplo de consola: é só o menu.
+
+---
+
+## 🖥️ Exemplo de consola
+
+Aplicação de consola simples, com código curto e fácil de ler.
+
+### 🐳 Correr com Docker (recomendado)
 
 1. Clona o projeto:
 
 ```bash
-git clone https://github.com/LazaroMagaia/paysuite-dotnet-sdk.git
-cd paysuite-dotnet-sdk
+git clone https://github.com/LazaroMagaia/paysuite-dotnet-samples.git
+cd paysuite-dotnet-samples/samples/Console
 ```
 
 2. Cria o ficheiro `.env` a partir do exemplo:
@@ -50,9 +124,7 @@ Se alterares o código, volta a construir a imagem:
 docker compose build
 ```
 
----
-
-## 💻 Correr sem Docker
+### 💻 Correr sem Docker
 
 Precisas do [.NET 10 SDK](https://dotnet.microsoft.com/download).
 
@@ -70,9 +142,7 @@ $env:PAYSUITE_TOKEN="o-teu-token-aqui"
 dotnet run
 ```
 
----
-
-## 🧭 Menu
+### 🧭 Menu
 
 Ao arrancar, a aplicação mostra este menu:
 
@@ -95,31 +165,31 @@ Ao arrancar, a aplicação mostra este menu:
 | 15 | Testar webhook |
 | 0 | Sair |
 
----
-
-## 📁 Estrutura
+### 📁 Estrutura
 
 ```
-Paysuit/
-├── Program.cs        # Menu (switch case)
-├── Settings.cs       # Lê o token da variável de ambiente
-├── Payments.cs       # Criar, listar e consultar pagamentos
-├── Contacts.cs       # Criar, listar, consultar, atualizar e eliminar contactos
-├── Payouts.cs        # Criar, listar e consultar payouts
-├── Refunds.cs        # Criar, listar e consultar refunds
-├── Webhooks.cs       # Validar assinatura e tratar eventos
-├── Paysuit.csproj
-├── Dockerfile
-├── compose.yaml
-├── .env.example
-└── .dockerignore
+paysuite-dotnet-samples/
+├── README.md
+├── .gitignore
+└── samples/
+    └── Console/
+        ├── Program.cs        # Menu (switch case)
+        ├── Settings.cs       # Lê o token da variável de ambiente
+        ├── Payments.cs       # Criar, listar e consultar pagamentos
+        ├── Contacts.cs       # Criar, listar, consultar, atualizar e eliminar contactos
+        ├── Payouts.cs        # Criar, listar e consultar payouts
+        ├── Refunds.cs        # Criar, listar e consultar refunds
+        ├── Webhooks.cs       # Validar assinatura e tratar eventos
+        ├── Paysuit.csproj
+        ├── Dockerfile
+        ├── compose.yaml
+        ├── .env.example
+        └── .dockerignore
 ```
 
 Cada recurso (`Payments`, `Contacts`, ...) é uma classe pequena com um método por operação. O `Program.cs` só decide qual método chamar.
 
----
-
-## ✏️ Antes de testar
+### ✏️ Antes de testar
 
 Os dados de exemplo estão **escritos diretamente no código**, para ser fácil de ler. Antes de testar, ajusta o que for preciso:
 
@@ -140,9 +210,9 @@ O SDK não recebe webhooks, porque um webhook é a PaySuite a chamar o **teu ser
 2. ler o evento (`payment.success`, `payout.failed`, `refund.success`, ...);
 3. reagir a cada evento com um `switch`.
 
-Num projeto real, tens de ter um endpoint HTTP (por exemplo, uma Minimal API em ASP.NET Core) que leia o corpo bruto e o header `X-Signature` e chame `ProcessWebhook`. Valida a assinatura **antes** de fazer parse do JSON.
+Num projeto real, tens de ter um endpoint HTTP (por exemplo, um controller MVC ou uma Minimal API em ASP.NET Core) que leia o corpo bruto e o header `X-Signature` e chame `ProcessWebhook`. Valida a assinatura **antes** de fazer parse do JSON.
 
-O `Secret` está fixo em `Webhooks.cs` só para o teste. Em produção, guarda-o numa variável de ambiente.
+O `Secret` está fixo em `Webhooks.cs` só para o teste. Em produção, guarda-o numa variável de ambiente ou nos user-secrets.
 
 ---
 
@@ -161,6 +231,7 @@ O `Secret` está fixo em `Webhooks.cs` só para o teste. Em produção, guarda-o
 | `Define PAYSUITE_TOKEN no ficheiro .env` | Cria o `.env` a partir do `.env.example` e coloca o token. |
 | `PAYSUITE_TOKEN is not set.` | Sem Docker: define a variável de ambiente antes do `dotnet run`. |
 | O menu não aceita teclado no Docker | Usa `docker compose run --rm paysuit`, não `docker compose up`. |
+| `NETSDK1064: Package ... was not found` no build | Garante que o `.dockerignore` tem `bin/` e `obj/`, e corre `docker compose build --no-cache`. |
 | Erro 401 | O token é inválido ou expirou. |
 | Erro 422 | Dados inválidos (por exemplo, saldo insuficiente num payout, ou pagamento ainda não completo num refund). |
 | Erro 429 | Limite de 100 pedidos por minuto excedido. Espera um pouco. |
@@ -170,10 +241,11 @@ O `Secret` está fixo em `Webhooks.cs` só para o teste. Em produção, guarda-o
 ## 📚 Links úteis
 
 - SDK: <https://github.com/LazaroMagaia/paysuite-dotnet-sdk>
+- Pacote NuGet: <https://www.nuget.org/packages/PaySuite.Sdk>
 - Documentação oficial da API: <https://paysuite.tech/docs>
 
 ---
 
 ## 📄 Licença
 
-Consulta o ficheiro `LICENSE` do repositório.# paysuite-dotnet-samples
+Consulta o ficheiro `LICENSE` do repositório.

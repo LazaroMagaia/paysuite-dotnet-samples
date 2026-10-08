@@ -1,0 +1,8 @@
+services:
+  paysuit:
+    build: .
+    environment:
+      PAYSUITE_TOKEN: ${PAYSUITE_TOKEN:?Define PAYSUITE_TOKEN no ficheiro .env}
+    # Necessario porque a app e um menu interativo (Console.ReadLine)
+    stdin_open: true
+    tty: true

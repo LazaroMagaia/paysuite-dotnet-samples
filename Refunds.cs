@@ -16,7 +16,7 @@ class Refunds
     {
         var request = new CreateRefundRequest
         {
-            PaymentId = "01H8X9V8X9Y8Z9A8B8C8D8E8F8", // tem de ser um pagamento completed
+            PaymentId = "Id do pagamento", // tem de ser um pagamento completed
             Amount = 50m,
             Reason = "Customer requested refund",
             WebhookUrl = "https://example.com/webhooks/refund" // opcional

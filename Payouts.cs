@@ -19,14 +19,14 @@ class Payouts
             Amount = 100m,
             Currency = "MZN",
             Method = "mpesa",
-            Reference = "PO123456",
+            Reference = "EXEMPLO1502",
             Description = "Pagamento ao beneficiario",
             Beneficiary = new Beneficiary
             {
-                Phone = "841234567",
+                Phone = "contacto",
                 Holder = "John Doe"
             },
-            WebhookUrl = "https://example.com/webhooks/payout" // opcional
+            WebhookUrl = "https://seudominio.com/webhooks/payout" // opcional
         };
 
         var result = await _client.Payouts.CreateAsync(request);

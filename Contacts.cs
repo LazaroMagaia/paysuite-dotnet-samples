@@ -16,9 +16,9 @@ class Contacts
     {
         var request = new CreateContactRequest
         {
-            Name = "João Silva",
-            Email = "joao@example.com",
-            Phone = "+258841234567"
+            Name = "john doe",
+            Email = "john@example.com",
+            Phone = "seu contacto"
         };
 
         var result = await _client.Contacts.CreateAsync(request);
@@ -59,7 +59,7 @@ class Contacts
 
     async public Task GetContact()
     {
-        var contactId = "01H8X9V8X9Y8Z9A8B8C8D8E8F8";
+        var contactId = "Id do contacto";
         var contact = await _client.Contacts.GetAsync(contactId);
         Console.WriteLine("CONTACTO SINGULAR");
         Console.WriteLine("==============================================================================");
@@ -69,11 +69,11 @@ class Contacts
 
     async public Task UpdateContact()
     {
-        var contactId = "01H8X9V8X9Y8Z9A8B8C8D8E8F8";
+        var contactId = "";
         var request = new UpdateContactRequest
         {
-            Name = "João Silva Atualizado",
-            Email = "novo@example.com"
+            Name = "John Doe Updated",
+            Email = "new@example.com"
         };
 
         var result = await _client.Contacts.UpdateAsync(contactId, request);
@@ -91,7 +91,7 @@ class Contacts
 
        async public Task DeleteContact()
     {
-        var contactId = "01H8X9V8X9Y8Z9A8B8C8D8E8F8";
+        var contactId = "";
         var result = await _client.Contacts.DeleteAsync(contactId);
 
         if (result.Status != "success")

@@ -17,7 +17,7 @@ class Payments
         {
             Amount = 100.50m,
             Method = "mpesa",
-            Reference = "INV123456",
+            Reference = "EXEMPLO1502",// nao pode ter hyphens, espacos ou caracteres especiais
             Description = "Pagamento da fatura",
             ReturnUrl = "https://seudominio.com/success",
         };
